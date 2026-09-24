@@ -1,0 +1,49 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead
+			title="Página não encontrada"
+			description="A página que você procura não existe neste blog."
+		/>
+		<style>
+			.not-found {
+				color: var(--brand-navy);
+			}
+			.not-found h1 {
+				color: var(--brand-navy);
+			}
+			.links {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem 1.25rem;
+				margin: 1.5rem 0 0;
+				padding: 0;
+				list-style: none;
+			}
+			.links a {
+				color: var(--brand-navy);
+				font-weight: 700;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="not-found">
+			<h1>Página não encontrada</h1>
+			<p>O endereço não corresponde a nenhuma página deste site.</p>
+			<ul class="links">
+				<li><a href="/">Início</a></li>
+				<li><a href="/blog">Blog</a></li>
+				<li><a href="/agentes">Para agentes</a></li>
+				<li><a href="/sobre">Sobre</a></li>
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
