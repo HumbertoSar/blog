@@ -23,9 +23,6 @@ publico_alvo: CAIOs, CTOs, founders, conselheiros de produto/tecnologia, lídere
 nao_inventar: manter apenas achados citados (Vaccaro 106 experimentos; Ding citações↑confiança inclusive aleatórias; HIAL Google Research sent for review)
 -->
 
-# Human in the loop sem design de interação: o que muda no produto com IA
-
-
 “Tem humano no loop?” entrou no vocabulário de roadmap, de comitê de risco e de pitch de produto com IA generativa quase como garantia moral. Dá conforto. Em muitos casos, porém, a pergunta chega cedo demais — e a resposta “sim” encerra uma conversa que deveria estar só começando.
 
 O que importa, se o objetivo é produto e governança de verdade, é outra coisa: o design da interação faz a pessoa decidir, ou apenas assinar o que o sistema — modelo, agente autônomo, fluxo automatizado — já fechou?

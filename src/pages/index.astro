@@ -1,25 +1,91 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = await getCollection('blog');
+const featured = posts.find((post) => post.id === 'human-in-the-loop-sem-design-de-interacao');
+
+if (!featured) {
+	throw new Error('Post em destaque HITL não encontrado.');
+}
 ---
 
 <!doctype html>
 <html lang="pt-BR">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.lede {
+				font-size: 1.15rem;
+				line-height: 1.6;
+			}
+			.featured-card {
+				display: block;
+				margin: 0 0 1.75rem;
+				padding: 1.35rem 1.4rem 1.2rem;
+				background: var(--brand-paper);
+				border: 1px solid var(--brand-line);
+				border-radius: var(--radius);
+				text-decoration: none;
+				color: inherit;
+			}
+			.featured-card:hover {
+				border-color: var(--brand-navy);
+			}
+			.featured-card:focus-visible {
+				outline: 2px solid var(--brand-navy);
+				outline-offset: 3px;
+			}
+			.featured-kicker {
+				margin: 0 0 0.55rem;
+				font-size: var(--fs-meta);
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+				color: var(--brand-muted);
+			}
+			.featured-card h2 {
+				margin: 0 0 0.55rem;
+				font-size: 1.35rem;
+				line-height: 1.25;
+				color: var(--brand-navy-ink);
+			}
+			.featured-card p {
+				margin: 0;
+				color: var(--brand-muted);
+				font-size: 1rem;
+				line-height: 1.5;
+			}
+			.featured-card .more {
+				display: inline-block;
+				margin-top: 0.9rem;
+				color: var(--brand-navy);
+				font-weight: 700;
+				font-size: 0.95rem;
+			}
+			.note {
+				color: var(--brand-navy-ink);
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
 			<h1>Humberto Sardenberg</h1>
-			<p>
+			<p class="lede">
 				Este é um blog sobre <strong>produto de IA</strong>, <strong>HITL</strong>
 				(human-in-the-loop) e <strong>interaction design</strong> — com foco em decisões
 				de produto, qualidade de experiência e o papel do humano em sistemas inteligentes.
 			</p>
-			<p>
+			<a class="featured-card" href={`/blog/${featured.id}/`}>
+				<p class="featured-kicker">Em destaque</p>
+				<h2>{featured.data.title}</h2>
+				<p>{featured.data.description}</p>
+				<span class="more">Ler o artigo</span>
+			</a>
+			<p class="note">
 				O site está entrando no ar. Enquanto isso, leia o post de abertura:
 				<a href="/blog/ola/">Olá</a>.
 			</p>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blog.mvpsardenberg.cloud/sitemap-index.xml

@@ -15,42 +15,34 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
 			.hero-image {
 				width: 100%;
+				margin-bottom: 1.5rem;
 			}
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
+				border-radius: var(--radius);
 			}
 			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
+				margin-bottom: 1.5rem;
+				padding: 0.25rem 0 0;
+				text-align: left;
 			}
 			.title h1 {
-				margin: 0 0 0.5em 0;
+				margin: 0;
 			}
 			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
+				margin: 0 0 0.5rem;
+				font-size: var(--fs-meta);
+				line-height: 1.4;
+				color: var(--brand-muted);
 			}
 			.last-updated-on {
 				font-style: italic;
+			}
+			.title hr {
+				margin: 1.25rem 0 0;
 			}
 		</style>
 	</head>
@@ -59,21 +51,26 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<Header />
 		<main>
 			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
+				{
+					heroImage && (
+						<div class="hero-image">
+							<Image width={1020} height={510} src={heroImage} alt="" />
+						</div>
+					)
+				}
 				<div class="prose">
 					<div class="title">
-						<div class="date">
+						<p class="date">
 							<FormattedDate date={pubDate} />
 							{
 								updatedDate && (
-									<div class="last-updated-on">
-										Atualizado em <FormattedDate date={updatedDate} />
-									</div>
+									<span class="last-updated-on">
+										{' '}
+										· Atualizado em <FormattedDate date={updatedDate} />
+									</span>
 								)
 							}
-						</div>
+						</p>
 						<h1>{title}</h1>
 						<hr />
 					</div>

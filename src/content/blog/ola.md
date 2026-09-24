@@ -2,7 +2,6 @@
 title: 'Olá'
 description: 'Este blog está entrando no ar — produto de IA, HITL e interaction design.'
 pubDate: 'Sep 24 2026'
-heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 Olá. Este blog está entrando no ar.

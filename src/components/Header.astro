@@ -21,47 +21,87 @@ import HeaderLink from './HeaderLink.astro';
 					></path></svg
 				>
 			</a>
+			<a
+				href="https://www.linkedin.com/in/humberto-sardenberg"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<span class="sr-only">LinkedIn de Humberto Sardenberg</span>
+				<svg viewBox="0 0 24 24" aria-hidden="true" width="32" height="32"
+					><path
+						fill="currentColor"
+						d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0z"
+					></path></svg
+				>
+			</a>
 		</div>
 	</nav>
 </header>
 <style>
 	header {
 		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+		padding: 0 1rem;
+		background: var(--brand-paper);
+		border-bottom: 1px solid var(--brand-line);
 	}
 	h2 {
 		margin: 0;
-		font-size: 1em;
+		font-size: 1rem;
+		line-height: 1.2;
 	}
 
 	h2 a,
 	h2 a.active {
 		text-decoration: none;
+		color: var(--brand-navy);
 	}
 	nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		gap: 0.5rem 1rem;
+		max-width: 72rem;
+		margin: 0 auto;
+	}
+	.internal-links {
+		display: flex;
+		align-items: center;
+		margin-left: auto;
 	}
 	nav a {
 		padding: 1em 0.5em;
-		color: var(--black);
+		color: var(--brand-navy-ink);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
 	}
 	nav a.active {
 		text-decoration: none;
-		border-bottom-color: var(--accent);
+		border-bottom-color: var(--brand-navy);
 	}
-	.social-links,
+	.social-links {
+		display: flex;
+		align-items: center;
+	}
 	.social-links a {
 		display: flex;
+		color: var(--brand-navy);
 	}
 	@media (max-width: 720px) {
+		nav {
+			flex-wrap: wrap;
+			padding: 0.15rem 0;
+		}
+		.internal-links {
+			order: 3;
+			width: 100%;
+			margin-left: 0;
+		}
 		.social-links {
-			display: none;
+			display: flex;
+		}
+		.social-links svg {
+			width: 28px;
+			height: 28px;
 		}
 	}
 </style>
