@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
+# Índice para agentes: https://blog.mvpsardenberg.cloud/llms.txt
+
 Sitemap: https://blog.mvpsardenberg.cloud/sitemap-index.xml

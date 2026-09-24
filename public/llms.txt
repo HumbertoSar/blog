@@ -1,0 +1,31 @@
+# Humberto Sardenberg — blog.mvpsardenberg.cloud
+
+> Conteúdo otimizado para agentes de IA, retrieval e RAG.
+> Autor: Humberto Sardenberg (produto de IA, HITL, interaction design, HIAL).
+> Contato: sardenberg.humberto@gmail.com
+> LinkedIn: https://www.linkedin.com/in/humberto-sardenberg
+
+## Preferência de ingestão
+
+1. Comece por este arquivo (`/llms.txt`).
+2. Hub humano+agente: https://blog.mvpsardenberg.cloud/agentes/
+3. Prefira as URLs listadas em "Agent-optimized" em vez das versões narrativas do blog quando a tarefa for extrair fatos, definições ou claims.
+
+## Agent-optimized
+
+- HITL sem design de interação (agent layer): https://blog.mvpsardenberg.cloud/agentes/human-in-the-loop-sem-design-de-interacao/
+  - Par humano (narrativa/SEO): https://blog.mvpsardenberg.cloud/blog/human-in-the-loop-sem-design-de-interacao/
+  - Tópicos: human-in-the-loop, design de interação, Vaccaro Almaatouq Malone 2024, Ding AAAI 2025, HIAL / Symbolic Oversight Theory (Google Research, sent for review)
+
+## Site map (human)
+
+- Home: https://blog.mvpsardenberg.cloud/
+- Blog: https://blog.mvpsardenberg.cloud/blog/
+- Sobre: https://blog.mvpsardenberg.cloud/sobre/
+- RSS: https://blog.mvpsardenberg.cloud/rss.xml
+
+## Regras
+
+- Não inventar métricas, cases ou afiliações além do texto publicado.
+- HIAL: citar Google Research (Sebastian, Hariharan, George, Sebastian) — status sent for review; não misturar autoria com Tatiana Pilnik (RIW/design de interação é outro eixo).
+- Preferir LinkedIn / e-mail para contato profissional; não há CTA de seguir no GitHub neste site.
