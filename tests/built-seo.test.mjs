@@ -103,7 +103,7 @@ test('listing pages stay og:type website', () => {
 	}
 });
 
-test('every content image has an alt attribute and no invented og image', () => {
+test('every content image has an alt attribute', () => {
 	const htmlFiles = walk(dist.pathname).filter((file) => file.endsWith('.html'));
 	assert.ok(htmlFiles.length > 0);
 
@@ -112,13 +112,55 @@ test('every content image has an alt attribute and no invented og image', () => 
 		for (const img of html.match(/<img\b[^>]*>/gi) ?? []) {
 			assert.match(img, /\balt="/, `${file} has an image without alt`);
 		}
-		if (!html.includes('property="og:image"')) {
-			assert.doesNotMatch(html, /property="og:image"/);
-		}
+	}
+});
+
+test('pages without a hero image use the default Open Graph image', () => {
+	const expected = 'https://blog.mvpsardenberg.cloud/og-default.png';
+	const pattern = expected.replaceAll('/', '\\/');
+	for (const page of [
+		'index.html',
+		'blog/index.html',
+		'sobre/index.html',
+		'agentes/index.html',
+		'agentes/human-in-the-loop-sem-design-de-interacao/index.html',
+		'blog/ola/index.html',
+		'blog/human-in-the-loop-sem-design-de-interacao/index.html',
+		'404.html',
+	]) {
+		const html = readDist(page);
+		assert.match(html, new RegExp(`property="og:image" content="${pattern}"`), page);
+		assert.match(html, new RegExp(`name="twitter:image" content="${pattern}"`), page);
+		assert.match(html, /name="twitter:card" content="summary_large_image"/, page);
+	}
+});
+
+test('Exponente icons and the Search Console file are published', () => {
+	for (const file of [
+		'favicon.svg',
+		'icon.svg',
+		'favicon.ico',
+		'favicon-16.png',
+		'favicon-32.png',
+		'favicon-48.png',
+		'apple-touch-icon.png',
+		'og-default.png',
+		'monograma-inverse.svg',
+		'googlefff3f3620bb24dc8.html',
+	]) {
+		assert.equal(existsSync(new URL(file, dist)), true, `${file} should exist in dist`);
 	}
 
-	const home = readDist('index.html');
-	const post = readDist('blog/ola/index.html');
-	assert.doesNotMatch(home, /property="og:image"/);
-	assert.doesNotMatch(post, /property="og:image"/);
+	assert.equal(
+		readFileSync(new URL('googlefff3f3620bb24dc8.html', dist), 'utf8'),
+		'google-site-verification: googlefff3f3620bb24dc8.html',
+	);
+
+	const html = readDist('index.html');
+	assert.match(html, /rel="icon" href="\/favicon\.svg" type="image\/svg\+xml"/);
+	assert.match(html, /rel="icon" href="\/favicon\.ico" sizes="any"/);
+	assert.match(html, /rel="icon" type="image\/png" sizes="32x32" href="\/favicon-32\.png"/);
+	assert.match(html, /rel="icon" type="image\/png" sizes="16x16" href="\/favicon-16\.png"/);
+	assert.match(html, /rel="apple-touch-icon" href="\/apple-touch-icon\.png"/);
+	assert.match(html, /name="theme-color" content="#0F2744"/);
 });

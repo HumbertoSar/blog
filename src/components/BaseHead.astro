@@ -15,7 +15,9 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image, ogType = 'website', publishedTime } = Astro.props;
-const socialImage = image ? new URL(image.src, Astro.url) : undefined;
+const socialImage = image
+	? new URL(image.src, Astro.url)
+	: new URL('/og-default.png', Astro.site);
 ---
 
 <!-- Global Metadata -->
@@ -57,11 +59,11 @@ const socialImage = image ? new URL(image.src, Astro.url) : undefined;
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-{socialImage && <meta property="og:image" content={socialImage} />}
+<meta property="og:image" content={socialImage} />
 <meta property="og:site_name" content={SITE_TITLE} />
 
 <!-- Twitter -->
-<meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-{socialImage && <meta name="twitter:image" content={socialImage} />}
+<meta name="twitter:image" content={socialImage} />
