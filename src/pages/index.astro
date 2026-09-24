@@ -1,0 +1,32 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Humberto Sardenberg</h1>
+			<p>
+				Este é um blog sobre <strong>produto de IA</strong>, <strong>HITL</strong>
+				(human-in-the-loop) e <strong>interaction design</strong> — com foco em decisões
+				de produto, qualidade de experiência e o papel do humano em sistemas inteligentes.
+			</p>
+			<p>
+				O site está entrando no ar. Enquanto isso, leia o post de abertura:
+				<a href="/blog/ola/">Olá</a>.
+			</p>
+			<p>
+				<a href="/blog">Ver todos os posts →</a>
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
