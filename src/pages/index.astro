@@ -3,7 +3,9 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import JsonLd from '../components/JsonLd.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { websiteJsonLd } from '../lib/structured-data';
 
 const posts = await getCollection('blog');
 const featured = posts.find((post) => post.id === 'human-in-the-loop-sem-design-de-interacao');
@@ -17,6 +19,13 @@ if (!featured) {
 <html lang="pt-BR">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<JsonLd
+			data={websiteJsonLd({
+				name: SITE_TITLE,
+				description: SITE_DESCRIPTION,
+				url: new URL('/', Astro.site).href,
+			})}
+		/>
 		<style>
 			.lede {
 				font-size: 1.15rem;
