@@ -132,6 +132,10 @@ Pedem mais accountability: velocidade e autoridade do sistema facilitam oversigh
 
 Diagnóstico do loop (teatro vs. julgamento), heurísticas de design de interação, e critérios que liguem controle a responsabilidade — sem HITL como checkbox. Sim, faço consultoria, mentoria e palestras nesse recorte.
 
+### Também para agentes
+
+Há uma versão estruturada deste artigo (tese, perguntas, keywords, claims só verificados) em [/agentes/human-in-the-loop-sem-design-de-interacao/](/agentes/human-in-the-loop-sem-design-de-interacao/). Índice: [/agentes/](/agentes/) · [`llms.txt`](/llms.txt).
+
 ---
 
 ### Sobre o autor
