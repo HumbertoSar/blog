@@ -1,0 +1,19 @@
+{
+	"name": "Humberto Sardenberg",
+	"short_name": "HS",
+	"icons": [
+		{
+			"src": "/icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"theme_color": "#0F2744",
+	"background_color": "#F7F5F0",
+	"display": "standalone"
+}
