@@ -67,3 +67,15 @@ const socialImage = image
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={socialImage} />
+
+{
+	import.meta.env.PROD && (
+		<script
+			is:inline
+			defer
+			src="https://stats.mvpsardenberg.cloud/script.js"
+			data-website-id="243174db-a629-448b-9136-ae79cd9be1cf"
+			data-domains="blog.mvpsardenberg.cloud"
+		/>
+	)
+}
