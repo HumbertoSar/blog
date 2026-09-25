@@ -164,3 +164,16 @@ test('Exponente icons and the Search Console file are published', () => {
 	assert.match(html, /rel="apple-touch-icon" href="\/apple-touch-icon\.png"/);
 	assert.match(html, /name="theme-color" content="#0F2744"/);
 });
+
+test('production pages include the Umami script with the blog website id', () => {
+	const html = readDist('index.html');
+	const match = html.match(
+		/<script\b[^>]*\bsrc="https:\/\/stats\.mvpsardenberg\.cloud\/script\.js"[^>]*>\s*<\/script>/,
+	);
+	assert.ok(match, 'dist/index.html should include the Umami script');
+	const tag = match[0];
+	assert.match(tag, /\bdefer\b/);
+	assert.match(tag, /data-website-id="243174db-a629-448b-9136-ae79cd9be1cf"/);
+	assert.match(tag, /data-domains="blog\.mvpsardenberg\.cloud"/);
+	assert.doesNotMatch(tag, /type="module"/);
+});
