@@ -16,6 +16,9 @@
 - HITL sem design de interação (agent layer): https://blog.mvpsardenberg.cloud/agentes/human-in-the-loop-sem-design-de-interacao/
   - Par humano (narrativa/SEO): https://blog.mvpsardenberg.cloud/blog/human-in-the-loop-sem-design-de-interacao/
   - Tópicos: human-in-the-loop, design de interação, Vaccaro Almaatouq Malone 2024, Ding AAAI 2025, HIAL / Symbolic Oversight Theory (Google Research, sent for review)
+- Fontes em chat de IA: por que quase ninguém confere (agent layer): https://blog.mvpsardenberg.cloud/agentes/fontes-em-ia-quase-ninguem-confere/
+  - Par humano (narrativa/SEO): https://blog.mvpsardenberg.cloud/blog/fontes-em-ia-quase-ninguem-confere/
+  - Tópicos: fontes em IA, citações, confiança calibrada, Ding AAAI 2025, Kim CHI 2025, Liu Zhang Liang 2023
 
 ## Site map (human)
 

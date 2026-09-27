@@ -24,6 +24,12 @@ Este blog tem uma camada pensada para **agentes de IA, retrieval e RAG** — al�
 - **Par humano:** [/blog/human-in-the-loop-sem-design-de-interacao/](/blog/human-in-the-loop-sem-design-de-interacao/)
 - **Temas:** HITL, design de interação (tarefa / momento / confiança / verificação), Vaccaro et al. 2024, Ding et al. 2025, HIAL
 
+### Fontes em chat de IA
+
+- **Agent layer:** [/agentes/fontes-em-ia-quase-ninguem-confere/](/agentes/fontes-em-ia-quase-ninguem-confere/)
+- **Par humano:** [/blog/fontes-em-ia-quase-ninguem-confere/](/blog/fontes-em-ia-quase-ninguem-confere/)
+- **Temas:** fontes e citações em IA, confiança calibrada, verificação, Ding et al. 2025, Kim et al. 2025, Liu et al. 2023
+
 ## Contato
 
 Humberto Sardenberg — produto, transformação digital e IA (preditiva e generativa).  
