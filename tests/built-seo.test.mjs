@@ -181,10 +181,10 @@ test('fontes article is in the blog and RSS, and its agent page stays out of bot
 		'Business case da resposta do ChatGPT',
 		'ao passar o mouse sobre',
 		'painel de fontes agrupado por tipo',
-		'faixa &quot;30% a 50%+&quot;',
+		'a faixa “30% a 50%+” sublinhada',
 		'Premissa minha, sem fonte',
 		'As fontes não medem a mesma coisa',
-		'Vai usar isso numa apresentação',
+		'vai para uma apresentação',
 		'Confiança calibrada',
 	];
 	for (const img of imgs) {
@@ -199,6 +199,8 @@ test('fontes article is in the blog and RSS, and its agent page stays out of bot
 			`missing image alt containing: ${alt}`,
 		);
 	}
+	const captions = html.match(/<p><img\b[^>]*>\s*<em>[^<]+<\/em><\/p>/g) ?? [];
+	assert.equal(captions.length, 10, 'each image should keep its italic caption');
 	for (const caption of [
 		'Screenshot real do teste (ChatGPT gratuito, sem login, 27/09/2026)',
 		'Painel de fontes do mesmo teste',
@@ -225,7 +227,8 @@ test('fontes article is in the blog and RSS, and its agent page stays out of bot
 		false,
 	);
 	assert.match(agent, /href="\/blog\/fontes-em-ia-quase-ninguem-confere\/"/);
-	assert.doesNotMatch(agent, /github/i);
+	assert.doesNotMatch(agent, /github\.com/i);
+	assert.doesNotMatch(agent, /href="[^"]*github/i);
 	assert.doesNotMatch(agent, /draft:\s*true/);
 
 	const hub = readDist('agentes/index.html');
