@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import ArticleLightbox from '../components/ArticleLightbox.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -12,6 +13,7 @@ type Props = CollectionEntry<'blog'>['data'] & {
 };
 
 const { title, description, pubDate, updatedDate, heroImage, jsonLd } = Astro.props;
+const enableLightbox = Astro.url.pathname.startsWith('/blog/');
 ---
 
 <html lang="pt-BR">
@@ -89,5 +91,6 @@ const { title, description, pubDate, updatedDate, heroImage, jsonLd } = Astro.pr
 			</article>
 		</main>
 		<Footer />
+		{enableLightbox && <ArticleLightbox />}
 	</body>
 </html>
