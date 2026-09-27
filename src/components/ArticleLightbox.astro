@@ -1,0 +1,156 @@
+<dialog id="article-lightbox" class="article-lightbox" aria-label="Imagem ampliada">
+	<button type="button" class="article-lightbox__close" aria-label="Fechar">
+		<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+			<path
+				d="M6 6l12 12M18 6L6 18"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2.25"
+				stroke-linecap="round"></path>
+		</svg>
+	</button>
+	<div class="article-lightbox__stage">
+		<p class="article-lightbox__caption" hidden></p>
+	</div>
+</dialog>
+
+<script>
+	import { initArticleLightbox } from '../scripts/article-lightbox';
+
+	initArticleLightbox();
+</script>
+
+<style is:global>
+	html.article-lightbox-open,
+	html.article-lightbox-open body {
+		overflow: hidden;
+	}
+
+	.article-zoom {
+		display: block;
+		width: fit-content;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		font: inherit;
+		line-height: 0;
+		color: inherit;
+		text-align: left;
+		cursor: zoom-in;
+		border-radius: var(--radius);
+	}
+
+	.article-zoom img {
+		cursor: zoom-in;
+	}
+
+	.article-zoom:focus-visible {
+		outline: 2px solid var(--brand-navy);
+		outline-offset: 3px;
+	}
+
+	dialog.article-lightbox {
+		position: fixed;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		max-width: none;
+		max-height: none;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		background: rgb(10 27 46 / 0.94);
+		color: var(--brand-cream);
+		box-sizing: border-box;
+		overflow: hidden;
+	}
+
+	dialog.article-lightbox::backdrop {
+		background: rgb(10 27 46 / 0.94);
+	}
+
+	dialog.article-lightbox[open] {
+		display: flex;
+	}
+
+	.article-lightbox__close {
+		position: absolute;
+		z-index: 2;
+		top: max(0.75rem, env(safe-area-inset-top));
+		right: max(0.75rem, env(safe-area-inset-right));
+		display: grid;
+		place-items: center;
+		width: 2.75rem;
+		height: 2.75rem;
+		margin: 0;
+		padding: 0;
+		border: 1px solid rgb(247 245 240 / 0.45);
+		border-radius: 999px;
+		background: rgb(10 27 46 / 0.72);
+		color: var(--brand-cream);
+		cursor: pointer;
+	}
+
+	.article-lightbox__close:hover,
+	.article-lightbox__close:focus-visible {
+		background: var(--brand-cream);
+		color: var(--brand-navy);
+		outline: 2px solid var(--brand-cream);
+		outline-offset: 3px;
+	}
+
+	.article-lightbox__stage {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 4.25rem 1rem 1.25rem;
+		pointer-events: none;
+	}
+
+	.article-lightbox__img {
+		pointer-events: auto;
+		display: block;
+		width: auto;
+		height: auto;
+		max-width: 100%;
+		max-height: calc(100dvh - 6.5rem);
+		object-fit: contain;
+		border-radius: var(--radius);
+		cursor: default;
+	}
+
+	dialog.article-lightbox.has-caption .article-lightbox__img {
+		max-height: calc(100dvh - 10.5rem);
+	}
+
+	.article-lightbox__caption {
+		pointer-events: auto;
+		max-width: min(38rem, 100%);
+		max-height: 6.5rem;
+		margin: 0;
+		overflow: auto;
+		font-size: var(--fs-meta);
+		font-style: italic;
+		line-height: 1.45;
+		text-align: center;
+		color: var(--brand-cream);
+	}
+
+	@media (max-width: 720px) {
+		.article-lightbox__stage {
+			padding: 4rem 0.75rem 1rem;
+		}
+
+		dialog.article-lightbox.has-caption .article-lightbox__img {
+			max-height: calc(100dvh - 12rem);
+		}
+	}
+</style>

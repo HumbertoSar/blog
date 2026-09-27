@@ -254,6 +254,32 @@ test('fontes article is in the blog and RSS, and its agent page stays out of bot
 	assert.match(sitemap, /\/agentes\/fontes-em-ia-quase-ninguem-confere\/?/);
 });
 
+test('blog posts ship an article lightbox and other pages do not', () => {
+	for (const page of [
+		'blog/fontes-em-ia-quase-ninguem-confere/index.html',
+		'blog/human-in-the-loop-sem-design-de-interacao/index.html',
+		'blog/ola/index.html',
+	]) {
+		const html = readDist(page);
+		assert.match(html, /<dialog\b[^>]*\bclass="article-lightbox"/, page);
+		assert.match(html, /aria-label="Fechar"/, page);
+		assert.match(html, /id="article-lightbox"/, page);
+	}
+
+	for (const page of [
+		'index.html',
+		'sobre/index.html',
+		'agentes/index.html',
+		'blog/index.html',
+		'agentes/fontes-em-ia-quase-ninguem-confere/index.html',
+		'agentes/human-in-the-loop-sem-design-de-interacao/index.html',
+	]) {
+		const html = readDist(page);
+		assert.doesNotMatch(html, /<dialog\b[^>]*article-lightbox/, page);
+		assert.doesNotMatch(html, /aria-label="Fechar"/, page);
+	}
+});
+
 test('production pages include the Umami script with the blog website id', () => {
 	const html = readDist('index.html');
 	const match = html.match(
