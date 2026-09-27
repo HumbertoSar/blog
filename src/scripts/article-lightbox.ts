@@ -54,13 +54,36 @@ export function initArticleLightbox(doc: Document = document): void {
 	stage.insertBefore(zoomImg, captionEl);
 
 	let returnFocus: HTMLElement | null = null;
+	let lockedScrollY = 0;
+	// Enter activates the image button on keydown, then keyup lands on the
+	// close button and would dismiss the dialog in the same gesture.
+	let swallowKeyboardClose = false;
 
-	const unlock = () => {
+	const lockScroll = () => {
+		lockedScrollY = window.scrollY;
+		const body = doc.body;
+		body.style.position = 'fixed';
+		body.style.top = `-${lockedScrollY}px`;
+		body.style.left = '0';
+		body.style.right = '0';
+		body.style.width = '100%';
+		doc.documentElement.classList.add('article-lightbox-open');
+	};
+
+	const unlockScroll = () => {
+		const body = doc.body;
+		body.style.position = '';
+		body.style.top = '';
+		body.style.left = '';
+		body.style.right = '';
+		body.style.width = '';
 		doc.documentElement.classList.remove('article-lightbox-open');
+		window.scrollTo(0, lockedScrollY);
 	};
 
 	dialog.addEventListener('close', () => {
-		unlock();
+		unlockScroll();
+		swallowKeyboardClose = false;
 		zoomImg.removeAttribute('src');
 		for (const trigger of prose.querySelectorAll<HTMLButtonElement>('.article-zoom[aria-expanded="true"]')) {
 			trigger.setAttribute('aria-expanded', 'false');
@@ -73,7 +96,15 @@ export function initArticleLightbox(doc: Document = document): void {
 		if (event.target === dialog) dialog.close();
 	});
 
-	closeBtn.addEventListener('click', () => {
+	closeBtn.addEventListener('keydown', (event) => {
+		if (!event.repeat) swallowKeyboardClose = false;
+	});
+
+	closeBtn.addEventListener('click', (event) => {
+		if (swallowKeyboardClose && event.detail === 0) {
+			swallowKeyboardClose = false;
+			return;
+		}
 		dialog.close();
 	});
 
@@ -108,9 +139,10 @@ export function initArticleLightbox(doc: Document = document): void {
 
 		returnFocus = trigger;
 		trigger.setAttribute('aria-expanded', 'true');
-		doc.documentElement.classList.add('article-lightbox-open');
+		lockScroll();
 		if (!dialog.open) dialog.showModal();
 		closeBtn.focus();
+		swallowKeyboardClose = true;
 	};
 
 	for (const img of prose.querySelectorAll('img')) {
