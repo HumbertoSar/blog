@@ -109,7 +109,7 @@ Não, segundo a documentação disponível em outubro de 2026: a entrada é text
 
 ### Onde ler a versão resumida para LinkedIn?
 
-O artigo complementar está no LinkedIn: [ARTIGO NO LINKEDIN: inserir URL após publicação](https://lnkd.in/p/dGBZzkVx).
+O artigo complementar está no LinkedIn: [Leia o artigo no LinkedIn](https://lnkd.in/p/dGBZzkVx).
 
 ---
 
