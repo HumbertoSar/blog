@@ -26,6 +26,7 @@ describe('websiteJsonLd', () => {
 		assert.deepEqual(data.author, {
 			'@type': 'Person',
 			name: 'Humberto Sardenberg',
+			sameAs: ['https://www.linkedin.com/in/humberto-sardenberg', 'https://x.com/1sardenberg'],
 		});
 		assert.equal(JSON.stringify(data).toLowerCase().includes('github'), false);
 	});
@@ -51,6 +52,7 @@ describe('blogPostingJsonLd', () => {
 		assert.deepEqual(data.author, {
 			'@type': 'Person',
 			name: 'Humberto Sardenberg',
+			sameAs: ['https://www.linkedin.com/in/humberto-sardenberg', 'https://x.com/1sardenberg'],
 		});
 		assert.equal('dateModified' in data, false);
 		assert.equal('image' in data, false);

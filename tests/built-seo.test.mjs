@@ -292,3 +292,23 @@ test('production pages include the Umami script with the blog website id', () =>
 	assert.match(tag, /data-domains="blog\.mvpsardenberg\.cloud"/);
 	assert.doesNotMatch(tag, /type="module"/);
 });
+
+test('LinkedIn and X profile links appear site-wide and in Person sameAs, without GitHub', () => {
+	const linkedin = 'https://www.linkedin.com/in/humberto-sardenberg';
+	const x = 'https://x.com/1sardenberg';
+	for (const page of ['index.html', 'sobre/index.html', 'blog/backchannel-interfaces-de-ia/index.html', 'agentes/index.html']) {
+		const html = readDist(page);
+		assert.ok(html.includes(`href="${linkedin}"`), `${page} links LinkedIn`);
+		assert.ok(html.includes(`href="${x}"`), `${page} links X`);
+		assert.match(html, /<a[^>]*href="https:\/\/x\.com\/1sardenberg"[^>]*rel="me noopener"/);
+		assert.doesNotMatch(html, /href="[^"]*(github|instagram)\.com/i);
+	}
+	for (const page of ['index.html', 'blog/backchannel-interfaces-de-ia/index.html']) {
+		const blocks = jsonLd(readDist(page));
+		const person = blocks.map((block) => block.author).find(Boolean);
+		assert.deepEqual(person.sameAs, [linkedin, x]);
+	}
+	const llms = readDist('llms.txt');
+	assert.ok(llms.includes(x));
+	assert.ok(llms.includes(linkedin));
+});

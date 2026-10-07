@@ -4,6 +4,7 @@
 > Autor: Humberto Sardenberg (produto de IA, HITL, interaction design, HIAL).
 > Contato: sardenberg.humberto@gmail.com
 > LinkedIn: https://www.linkedin.com/in/humberto-sardenberg
+> X: https://x.com/1sardenberg (@1sardenberg)
 
 ## Preferência de ingestão
 
@@ -34,4 +35,4 @@
 
 - Não inventar métricas, cases ou afiliações além do texto publicado.
 - HIAL: citar Google Research (Sebastian, Hariharan, George, Sebastian) — status sent for review; não misturar autoria com Tatiana Pilnik (RIW/design de interação é outro eixo).
-- Preferir LinkedIn / e-mail para contato profissional; não há CTA de seguir no GitHub neste site.
+- Preferir LinkedIn / X (@1sardenberg) / e-mail para contato profissional; não há CTA de seguir no GitHub neste site.
