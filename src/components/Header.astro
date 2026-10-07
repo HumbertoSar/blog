@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE } from '../consts';
+import { SITE_LINKEDIN_URL, SITE_TITLE, SITE_X_URL } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
 
@@ -14,15 +14,28 @@ import HeaderLink from './HeaderLink.astro';
 		</div>
 		<div class="social-links">
 			<a
-				href="https://www.linkedin.com/in/humberto-sardenberg"
+				href={SITE_LINKEDIN_URL}
 				target="_blank"
-				rel="noopener noreferrer"
+				rel="me noopener"
 			>
 				<span class="sr-only">LinkedIn de Humberto Sardenberg</span>
 				<svg viewBox="0 0 24 24" aria-hidden="true" width="32" height="32"
 					><path
 						fill="currentColor"
 						d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0z"
+					></path></svg
+				>
+			</a>
+			<a
+				href={SITE_X_URL}
+				target="_blank"
+				rel="me noopener"
+			>
+				<span class="sr-only">X (@1sardenberg) de Humberto Sardenberg</span>
+				<svg viewBox="0 0 24 24" aria-hidden="true" width="32" height="32"
+					><path
+						fill="currentColor"
+						d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
 					></path></svg
 				>
 			</a>

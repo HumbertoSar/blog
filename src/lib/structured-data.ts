@@ -1,11 +1,15 @@
+import { SITE_LINKEDIN_URL, SITE_X_URL } from '../consts.ts';
+
 type Person = {
 	'@type': 'Person';
 	name: 'Humberto Sardenberg';
+	sameAs: string[];
 };
 
 const author: Person = {
 	'@type': 'Person',
 	name: 'Humberto Sardenberg',
+	sameAs: [SITE_LINKEDIN_URL, SITE_X_URL],
 };
 
 export type WebsiteJsonLd = {

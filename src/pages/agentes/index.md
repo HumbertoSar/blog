@@ -39,4 +39,4 @@ Este blog tem uma camada pensada para **agentes de IA, retrieval e RAG** — al�
 ## Contato
 
 Humberto Sardenberg — produto, transformação digital e IA (preditiva e generativa).  
-[LinkedIn](https://www.linkedin.com/in/humberto-sardenberg) · sardenberg.humberto@gmail.com
+[LinkedIn](https://www.linkedin.com/in/humberto-sardenberg) · [X (@1sardenberg)](https://x.com/1sardenberg) · sardenberg.humberto@gmail.com
