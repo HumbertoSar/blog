@@ -30,6 +30,12 @@ Este blog tem uma camada pensada para **agentes de IA, retrieval e RAG** — al�
 - **Par humano:** [/blog/fontes-em-ia-quase-ninguem-confere/](/blog/fontes-em-ia-quase-ninguem-confere/)
 - **Temas:** fontes e citações em IA, confiança calibrada, verificação, Ding et al. 2025, Kim et al. 2025, Liu et al. 2023
 
+### Backchannel em interfaces de IA
+
+- **Agent layer:** [/agentes/backchannel-interfaces-de-ia/](/agentes/backchannel-interfaces-de-ia/)
+- **Par humano:** [/blog/backchannel-interfaces-de-ia/](/blog/backchannel-interfaces-de-ia/)
+- **Temas:** backchannel (Yngve 1970), grounding (Clark e Brennan 1991), taxa de aceitação vs compreensão (Mozannar et al. 2024), sinais de acompanhamento, modelos de decisão
+
 ## Contato
 
 Humberto Sardenberg — produto, transformação digital e IA (preditiva e generativa).  

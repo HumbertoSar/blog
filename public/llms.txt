@@ -19,6 +19,9 @@
 - Fontes em chat de IA: por que quase ninguém confere (agent layer): https://blog.mvpsardenberg.cloud/agentes/fontes-em-ia-quase-ninguem-confere/
   - Par humano (narrativa/SEO): https://blog.mvpsardenberg.cloud/blog/fontes-em-ia-quase-ninguem-confere/
   - Tópicos: fontes em IA, citações, confiança calibrada, Ding AAAI 2025, Kim CHI 2025, Liu Zhang Liang 2023
+- Backchannel em interfaces de IA (agent layer): https://blog.mvpsardenberg.cloud/agentes/backchannel-interfaces-de-ia/
+  - Par humano (narrativa/SEO): https://blog.mvpsardenberg.cloud/blog/backchannel-interfaces-de-ia/
+  - Tópicos: backchannel, Yngve 1970, grounding Clark Brennan 1991, taxa de aceitação, Mozannar CHI 2024, modelos de decisão (Decisions API, Jev)
 
 ## Site map (human)
 
