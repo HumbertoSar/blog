@@ -1,5 +1,7 @@
 # build output
 dist/
+# full-size copies of post images, generated at build
+public/originais/
 # generated types
 .astro/
 

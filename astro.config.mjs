@@ -1,13 +1,23 @@
 // @ts-check
 
 import mdx from '@astrojs/mdx';
+import { satteri } from '@astrojs/markdown-satteri';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import { publishAllBlogOriginals } from './src/lib/original-images.ts';
+import { originalImageLinksPlugin } from './src/plugins/original-image-links.ts';
+
+publishAllBlogOriginals();
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://blog.mvpsardenberg.cloud',
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		processor: satteri({
+			hastPlugins: [originalImageLinksPlugin()],
+		}),
+	},
 	i18n: {
 		defaultLocale: 'pt-BR',
 		locales: ['pt-BR'],

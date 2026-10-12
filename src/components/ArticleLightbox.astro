@@ -11,6 +11,7 @@
 	</button>
 	<div class="article-lightbox__stage">
 		<p class="article-lightbox__caption" hidden></p>
+		<a class="article-lightbox__original" hidden target="_blank" rel="noopener">Abrir arquivo original</a>
 	</div>
 </dialog>
 
@@ -142,6 +143,18 @@
 		line-height: 1.45;
 		text-align: center;
 		color: var(--brand-cream);
+	}
+
+	.article-lightbox__original {
+		pointer-events: auto;
+		color: var(--brand-cream);
+		font-size: var(--fs-meta);
+		font-weight: 700;
+	}
+
+	.article-lightbox__original:focus-visible {
+		outline: 2px solid var(--brand-cream);
+		outline-offset: 3px;
 	}
 
 	@media (max-width: 720px) {

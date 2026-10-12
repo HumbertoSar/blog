@@ -126,10 +126,17 @@ p {
 }
 
 .prose h2 {
-	font-size: var(--fs-h2);
-	margin-top: 2.5em;
+	font-size: 1.75rem;
+	margin-top: 3em;
 	margin-bottom: 0.55em;
 	line-height: 1.25;
+	scroll-margin-top: 1.5rem;
+}
+
+/* The post layout already renders the title. A markdown H1 after it would duplicate it.
+   Agent pages have no .title, so their H1 stays. */
+.prose > .title ~ h1 {
+	display: none;
 }
 
 .prose h3 {
@@ -235,6 +242,180 @@ blockquote {
 
 	main {
 		padding: 1.5rem 0 2rem;
+	}
+}
+
+a:focus-visible {
+	outline: 2px solid var(--brand-navy);
+	outline-offset: 2px;
+}
+
+.skip-link:not(:focus) {
+	position: absolute;
+	left: -9999px;
+}
+
+.skip-link:focus {
+	position: fixed;
+	z-index: 1000;
+	left: 1rem;
+	top: 1rem;
+	padding: 0.6rem 0.9rem;
+	background: var(--brand-paper);
+	color: var(--brand-navy);
+	font-size: 1rem;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+#conteudo:focus {
+	outline: none;
+}
+
+.article-shell {
+	width: min(var(--measure), calc(100% - 2rem));
+	margin-inline: auto;
+}
+
+.article-shell.has-toc {
+	display: flex;
+	flex-direction: column;
+}
+
+.article-shell main {
+	width: auto;
+	margin: 0;
+}
+
+.prose :is(figure, p:has(> img), p:has(> a > img)) {
+	width: min(64rem, 100vw - 2rem);
+	max-width: none;
+	margin-inline: calc(50% - min(32rem, 50vw - 1rem));
+}
+
+.prose img {
+	width: 100%;
+	height: auto;
+	border: 1px solid var(--brand-line);
+	box-sizing: border-box;
+}
+
+.prose a.figure-original {
+	display: block;
+	width: 100%;
+	max-width: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	line-height: 0;
+	color: inherit;
+	text-decoration: none;
+	cursor: zoom-in;
+}
+
+.toc {
+	order: -1;
+	margin: 1.5rem 0 0;
+	font-size: var(--fs-meta);
+	line-height: 1.45;
+}
+
+.toc-title {
+	margin: 0;
+	color: var(--brand-muted);
+	font-size: var(--fs-meta);
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.toc ol {
+	margin: 0.45rem 0 0;
+	padding: 0 0 0 1.15rem;
+}
+
+.toc li + li {
+	margin-top: 0.4rem;
+}
+
+.toc a {
+	color: var(--brand-navy);
+	text-decoration: none;
+}
+
+.toc a:hover {
+	text-decoration: underline;
+}
+
+.post-pager {
+	display: grid;
+	gap: 1rem;
+	margin-top: 3rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--brand-line);
+}
+
+.post-pager a {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	color: var(--brand-navy);
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.post-pager span {
+	color: var(--brand-muted);
+	font-size: var(--fs-meta);
+	font-weight: 400;
+}
+
+@media (min-width: 721px) {
+	.post-pager {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.post-pager__next {
+		grid-column: 2;
+		text-align: right;
+	}
+}
+
+@media (width >= 1200px) {
+	.article-shell.has-toc {
+		display: grid;
+		grid-template-columns: minmax(0, 64rem) 15rem;
+		column-gap: 2rem;
+		align-items: start;
+		width: min(calc(64rem + 17rem), calc(100% - 2rem));
+	}
+
+	.article-shell.has-toc .article-column {
+		container-type: inline-size;
+		min-width: 0;
+	}
+
+	.article-shell.has-toc main {
+		width: min(var(--measure), 100%);
+		margin-right: 0;
+		margin-left: auto;
+	}
+
+	.article-shell.has-toc .prose :is(figure, p:has(> img), p:has(> a > img)) {
+		width: min(64rem, 100cqi);
+		margin-right: 0;
+		margin-left: calc(100% - min(64rem, 100cqi));
+	}
+
+	.toc {
+		position: sticky;
+		top: 2rem;
+		order: 0;
+		align-self: start;
+		max-height: calc(100dvh - 4rem);
+		margin-top: 2.5rem;
+		overflow: auto;
+		font-size: var(--fs-meta);
 	}
 }
 

@@ -1,4 +1,5 @@
-import { largestImageUrl, parseSrcset, type ImageCandidate } from '../lib/image-source';
+import { parseSrcset, preferredZoomUrl, type ImageCandidate } from '../lib/image-source';
+import { shouldZoomOnClick } from '../lib/zoom-click';
 
 function resolveUrl(url: string): string {
 	try {
@@ -31,7 +32,7 @@ function captionFor(img: HTMLImageElement): string {
 	const em = [...paragraph.children].find((el) => el.tagName === 'EM');
 	if (!em) return '';
 	const leftover = paragraph.cloneNode(true) as HTMLElement;
-	leftover.querySelectorAll('img, em, button.article-zoom').forEach((node) => node.remove());
+	leftover.querySelectorAll('img, em, button.article-zoom, a.figure-original').forEach((node) => node.remove());
 	if (leftover.textContent?.trim()) return '';
 	return em.textContent?.trim() ?? '';
 }
@@ -45,6 +46,7 @@ export function initArticleLightbox(doc: Document = document): void {
 	const stage = dialog.querySelector('.article-lightbox__stage');
 	const captionEl = dialog.querySelector<HTMLElement>('.article-lightbox__caption');
 	const closeBtn = dialog.querySelector<HTMLButtonElement>('.article-lightbox__close');
+	const originalLink = dialog.querySelector<HTMLAnchorElement>('a.article-lightbox__original');
 	if (!stage || !captionEl || !closeBtn) return;
 
 	const zoomImg = doc.createElement('img');
@@ -85,7 +87,11 @@ export function initArticleLightbox(doc: Document = document): void {
 		unlockScroll();
 		swallowKeyboardClose = false;
 		zoomImg.removeAttribute('src');
-		for (const trigger of prose.querySelectorAll<HTMLButtonElement>('.article-zoom[aria-expanded="true"]')) {
+		if (originalLink) {
+			originalLink.hidden = true;
+			originalLink.removeAttribute('href');
+		}
+		for (const trigger of prose.querySelectorAll<HTMLElement>('.article-zoom[aria-expanded="true"]')) {
 			trigger.setAttribute('aria-expanded', 'false');
 		}
 		returnFocus?.focus();
@@ -108,8 +114,9 @@ export function initArticleLightbox(doc: Document = document): void {
 		dialog.close();
 	});
 
-	const open = (source: HTMLImageElement, trigger: HTMLButtonElement) => {
-		const chosen = largestImageUrl(candidatesFor(source));
+	const open = (source: HTMLImageElement, trigger: HTMLElement) => {
+		const originalHref = source.closest('a.figure-original')?.getAttribute('href');
+		const chosen = preferredZoomUrl(originalHref, candidatesFor(source));
 		if (!chosen) return;
 		const alt = source.getAttribute('alt') ?? '';
 		const caption = captionFor(source);
@@ -137,6 +144,16 @@ export function initArticleLightbox(doc: Document = document): void {
 		}
 		dialog.setAttribute('aria-label', caption || alt || 'Imagem ampliada');
 
+		if (originalLink) {
+			if (originalHref) {
+				originalLink.href = resolveUrl(originalHref);
+				originalLink.hidden = false;
+			} else {
+				originalLink.hidden = true;
+				originalLink.removeAttribute('href');
+			}
+		}
+
 		returnFocus = trigger;
 		trigger.setAttribute('aria-expanded', 'true');
 		lockScroll();
@@ -145,16 +162,36 @@ export function initArticleLightbox(doc: Document = document): void {
 		swallowKeyboardClose = true;
 	};
 
+	const markZoomTrigger = (trigger: HTMLElement, img: HTMLImageElement) => {
+		trigger.classList.add('article-zoom');
+		trigger.setAttribute('aria-haspopup', 'dialog');
+		trigger.setAttribute('aria-controls', 'article-lightbox');
+		trigger.setAttribute('aria-expanded', 'false');
+		if (!trigger.hasAttribute('aria-label')) {
+			const alt = img.getAttribute('alt')?.trim() ?? '';
+			if (trigger.tagName === 'BUTTON') {
+				trigger.setAttribute('aria-label', alt ? `Ampliar imagem: ${alt}` : 'Ampliar imagem');
+			}
+		}
+	};
+
 	for (const img of prose.querySelectorAll('img')) {
-		if (img.closest('a') || img.closest('.article-zoom')) continue;
+		if (img.closest('.article-zoom')) continue;
+		const link = img.closest('a');
+		if (link) {
+			if (!link.classList.contains('figure-original')) continue;
+			markZoomTrigger(link, img);
+			link.addEventListener('click', (event) => {
+				if (!shouldZoomOnClick(event)) return;
+				event.preventDefault();
+				open(img, link);
+			});
+			continue;
+		}
 		const button = doc.createElement('button');
 		button.type = 'button';
 		button.className = 'article-zoom';
-		button.setAttribute('aria-haspopup', 'dialog');
-		button.setAttribute('aria-controls', 'article-lightbox');
-		button.setAttribute('aria-expanded', 'false');
-		const alt = img.getAttribute('alt')?.trim() ?? '';
-		button.setAttribute('aria-label', alt ? `Ampliar imagem: ${alt}` : 'Ampliar imagem');
+		markZoomTrigger(button, img);
 		img.parentNode?.insertBefore(button, img);
 		button.append(img);
 		button.addEventListener('click', () => open(img, button));
