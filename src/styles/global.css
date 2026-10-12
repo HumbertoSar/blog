@@ -134,8 +134,9 @@ p {
 }
 
 /* The post layout already renders the title. A markdown H1 after it would duplicate it.
-   Agent pages have no .title, so their H1 stays. */
-.prose > .title ~ h1 {
+   Agent pages have no .title or .post-body, so their H1 stays. */
+.prose > .title ~ h1,
+.post-body > h1 {
 	display: none;
 }
 
@@ -277,11 +278,6 @@ a:focus-visible {
 	margin-inline: auto;
 }
 
-.article-shell.has-toc {
-	display: flex;
-	flex-direction: column;
-}
-
 .article-shell main {
 	width: auto;
 	margin: 0;
@@ -314,7 +310,6 @@ a:focus-visible {
 }
 
 .toc {
-	order: -1;
 	margin: 1.5rem 0 0;
 	font-size: var(--fs-meta);
 	line-height: 1.45;
@@ -383,39 +378,60 @@ a:focus-visible {
 
 @media (width >= 1200px) {
 	.article-shell.has-toc {
+		width: min(calc(64rem + 17rem), calc(100% - 2rem));
+	}
+
+	/* Title, body, and index share one grid. The index spans the column so it can stick. */
+	.article-shell.has-toc article {
 		display: grid;
 		grid-template-columns: minmax(0, 64rem) 15rem;
 		column-gap: 2rem;
 		align-items: start;
-		width: min(calc(64rem + 17rem), calc(100% - 2rem));
 	}
 
-	.article-shell.has-toc .article-column {
-		container-type: inline-size;
+	.article-shell.has-toc .prose {
+		display: contents;
+	}
+
+	.article-shell.has-toc :is(.hero-image, .title, .post-body, .post-pager) {
+		grid-column: 1;
 		min-width: 0;
 	}
 
-	.article-shell.has-toc main {
+	.article-shell.has-toc :is(.hero-image, .title, .post-pager) {
 		width: min(var(--measure), 100%);
-		margin-right: 0;
-		margin-left: auto;
+		justify-self: center;
 	}
 
-	.article-shell.has-toc .prose :is(figure, p:has(> img), p:has(> a > img)) {
-		width: min(64rem, 100cqi);
-		margin-right: 0;
-		margin-left: calc(100% - min(64rem, 100cqi));
+	.article-shell.has-toc .post-body {
+		display: grid;
+		justify-items: center;
+		container-type: inline-size;
 	}
 
-	.toc {
+	.article-shell.has-toc .post-body > * {
+		width: min(var(--measure), 100%);
+		min-width: 0;
+	}
+
+	/* Center wide figures in the column between the page edge and the side index.
+	   100cqi caps them to that column so a 64rem figure cannot slide under the index. */
+	.article-shell.has-toc .post-body > :is(figure, p:has(> img), p:has(> a > img)) {
+		width: min(64rem, 100vw - 2rem, 100cqi);
+		max-width: none;
+		margin-inline: 0;
+		justify-self: center;
+	}
+
+	.article-shell.has-toc .toc {
+		grid-column: 2;
+		grid-row: 1 / span 5;
 		position: sticky;
 		top: 2rem;
-		order: 0;
 		align-self: start;
 		max-height: calc(100dvh - 4rem);
-		margin-top: 2.5rem;
+		margin: 0;
 		overflow: auto;
-		font-size: var(--fs-meta);
 	}
 }
 

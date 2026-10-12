@@ -126,7 +126,23 @@ const showArticleMeta = typeof readingMinutes === 'number';
 								</p>
 								<hr />
 							</div>
-							<slot />
+							{
+								toc.length > 0 && (
+									<nav class="toc" aria-label="Neste artigo">
+										<p class="toc-title">Neste artigo</p>
+										<ol>
+											{toc.map((heading) => (
+												<li>
+													<a href={`#${heading.slug}`}>{heading.text}</a>
+												</li>
+											))}
+										</ol>
+									</nav>
+								)
+							}
+							<div class="post-body">
+								<slot />
+							</div>
 						</div>
 						{
 							(older || newer) && (
@@ -153,20 +169,6 @@ const showArticleMeta = typeof readingMinutes === 'number';
 					</article>
 				</main>
 			</div>
-			{
-				toc.length > 0 && (
-					<nav class="toc" aria-label="Neste artigo">
-						<p class="toc-title">Neste artigo</p>
-						<ol>
-							{toc.map((heading) => (
-								<li>
-									<a href={`#${heading.slug}`}>{heading.text}</a>
-								</li>
-							))}
-						</ol>
-					</nav>
-				)
-			}
 		</div>
 		<Footer />
 		{enableLightbox && <ArticleLightbox />}
