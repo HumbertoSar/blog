@@ -20,6 +20,19 @@ export function parseSrcset(srcset: string, baseWidth = 0): ImageCandidate[] {
 }
 
 /**
+ * Zoom target for a figure. Prefer the link to the original file so annotations
+ * stay full size; otherwise the largest optimized candidate.
+ */
+export function preferredZoomUrl(
+	originalHref: string | null | undefined,
+	candidates: ImageCandidate[],
+): string | undefined {
+	const href = originalHref?.trim();
+	if (href) return href;
+	return largestImageUrl(candidates);
+}
+
+/**
  * Highest-resolution URL among astro:assets candidates.
  * Prefers the largest `w`/`x` descriptor, then a wider `src`, then the last candidate.
  */

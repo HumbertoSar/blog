@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { largestImageUrl, parseSrcset } from '../src/lib/image-source.ts';
+import { largestImageUrl, parseSrcset, preferredZoomUrl } from '../src/lib/image-source.ts';
 
 describe('largestImageUrl', () => {
 	it('uses the only optimized src when there is no srcset', () => {
@@ -31,6 +31,23 @@ describe('largestImageUrl', () => {
 	it('resolves density descriptors against the image width', () => {
 		const candidates = parseSrcset('/_astro/shot.webp 1x, /_astro/shot-2x.webp 2x', 800);
 		assert.equal(largestImageUrl(candidates), '/_astro/shot-2x.webp');
+	});
+
+	it('prefers the original file over a smaller optimized candidate', () => {
+		assert.equal(
+			preferredZoomUrl('/originais/post/img/shot.png', [
+				{ url: '/_astro/shot-800.webp', width: 800 },
+			]),
+			'/originais/post/img/shot.png',
+		);
+	});
+
+	it('falls back to the largest optimized candidate when there is no original link', () => {
+		assert.equal(
+			preferredZoomUrl('  ', [{ url: '/_astro/shot.webp', width: 1536 }]),
+			'/_astro/shot.webp',
+		);
+		assert.equal(preferredZoomUrl(null, [{ url: '/_astro/shot.webp', width: 1536 }]), '/_astro/shot.webp');
 	});
 
 	it('falls back to the last candidate when widths are missing', () => {

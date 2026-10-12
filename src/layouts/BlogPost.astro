@@ -7,13 +7,34 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import JsonLd from '../components/JsonLd.astro';
+import { SITE_AUTHOR } from '../consts';
+
+type Heading = { depth: number; slug: string; text: string };
+type Neighbor = { href: string; title: string };
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	jsonLd?: unknown[];
+	readingMinutes?: number;
+	headings?: Heading[];
+	newer?: Neighbor | null;
+	older?: Neighbor | null;
 };
 
-const { title, description, pubDate, updatedDate, heroImage, jsonLd } = Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	jsonLd,
+	readingMinutes,
+	headings = [],
+	newer = null,
+	older = null,
+} = Astro.props;
 const enableLightbox = Astro.url.pathname.startsWith('/blog/');
+const toc = headings.filter((heading) => heading.depth === 2);
+const showArticleMeta = typeof readingMinutes === 'number';
 ---
 
 <html lang="pt-BR">
@@ -44,11 +65,14 @@ const enableLightbox = Astro.url.pathname.startsWith('/blog/');
 			.title h1 {
 				margin: 0;
 			}
-			.date {
-				margin: 0 0 0.5rem;
+			.meta {
+				margin: 0.85rem 0 0;
 				font-size: var(--fs-meta);
 				line-height: 1.4;
 				color: var(--brand-muted);
+			}
+			.sep {
+				margin: 0 0.4rem;
 			}
 			.last-updated-on {
 				font-style: italic;
@@ -61,35 +85,89 @@ const enableLightbox = Astro.url.pathname.startsWith('/blog/');
 
 	<body>
 		<Header />
-		<main>
-			<article>
-				{
-					heroImage && (
-						<div class="hero-image">
-							<Image width={1020} height={510} src={heroImage} alt={title} />
+		<div class:list={['article-shell', { 'has-toc': toc.length > 0 }]}>
+			<div class="article-column">
+				<main id="conteudo" tabindex="-1">
+					<article>
+						{
+							heroImage && (
+								<div class="hero-image">
+									<Image width={1020} height={510} src={heroImage} alt={title} />
+								</div>
+							)
+						}
+						<div class="prose">
+							<div class="title">
+								<h1>{title}</h1>
+								<p class="meta">
+									<FormattedDate date={pubDate} />
+									{
+										showArticleMeta && (
+											<>
+												<span class="sep" aria-hidden="true">
+													·
+												</span>
+												<span>{readingMinutes} min de leitura</span>
+												<span class="sep" aria-hidden="true">
+													·
+												</span>
+												<span>{SITE_AUTHOR}</span>
+											</>
+										)
+									}
+									{
+										updatedDate && (
+											<span class="last-updated-on">
+												{' '}
+												· Atualizado em <FormattedDate date={updatedDate} />
+											</span>
+										)
+									}
+								</p>
+								<hr />
+							</div>
+							<slot />
 						</div>
-					)
-				}
-				<div class="prose">
-					<div class="title">
-						<p class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<span class="last-updated-on">
-										{' '}
-										· Atualizado em <FormattedDate date={updatedDate} />
-									</span>
-								)
-							}
-						</p>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
+						{
+							(older || newer) && (
+								<nav class="post-pager" aria-label="Mais artigos">
+									{
+										older && (
+											<a class="post-pager__prev" rel="prev" href={older.href}>
+												<span>Anterior</span>
+												{older.title}
+											</a>
+										)
+									}
+									{
+										newer && (
+											<a class="post-pager__next" rel="next" href={newer.href}>
+												<span>Próximo</span>
+												{newer.title}
+											</a>
+										)
+									}
+								</nav>
+							)
+						}
+					</article>
+				</main>
+			</div>
+			{
+				toc.length > 0 && (
+					<nav class="toc" aria-label="Neste artigo">
+						<p class="toc-title">Neste artigo</p>
+						<ol>
+							{toc.map((heading) => (
+								<li>
+									<a href={`#${heading.slug}`}>{heading.text}</a>
+								</li>
+							))}
+						</ol>
+					</nav>
+				)
+			}
+		</div>
 		<Footer />
 		{enableLightbox && <ArticleLightbox />}
 	</body>

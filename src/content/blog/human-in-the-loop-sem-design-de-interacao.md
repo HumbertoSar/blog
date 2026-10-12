@@ -1,6 +1,7 @@
 ---
 title: "Human in the loop sem design de interação: o que muda no produto com IA"
 description: "HITL sem design de interação vira carimbo. Nature 2024: combo humano+IA pode piorar decisão. Citações elevam confiança sem verificação; pivot HITL→HIAL."
+summary: "Um humano no fluxo não garante uma boa decisão. Quando a supervisão vira carimbo, juntar pessoas e IA pode piorar o resultado, e o desenho da interação é o que muda no produto."
 pubDate: 2026-09-24
 ---
 

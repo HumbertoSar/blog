@@ -1,11 +1,16 @@
 ---
 import { SITE_LINKEDIN_URL, SITE_TITLE, SITE_X_URL } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+import Monogram from './Monogram.astro';
 ---
 
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<a class="brand" href="/">
+			<Monogram />
+			<span>{SITE_TITLE}</span>
+		</a>
 		<div class="internal-links">
 			<HeaderLink href="/">Início</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
@@ -49,16 +54,23 @@ import HeaderLink from './HeaderLink.astro';
 		background: var(--brand-paper);
 		border-bottom: 1px solid var(--brand-line);
 	}
-	h2 {
+	.brand {
+		display: flex;
+		align-items: center;
+		gap: var(--s-2);
 		margin: 0;
-		font-size: 1rem;
+		padding: 0.35rem 0;
+		border-bottom: 0;
+		font-weight: 700;
+		font-size: 1.125rem;
 		line-height: 1.2;
-	}
-
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
 		color: var(--brand-navy);
+		text-decoration: none;
+	}
+	.brand :global(svg) {
+		width: 28px;
+		height: 28px;
+		flex: none;
 	}
 	nav {
 		display: flex;
@@ -78,6 +90,11 @@ import HeaderLink from './HeaderLink.astro';
 		color: var(--brand-navy-ink);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
+	}
+	nav a.brand {
+		padding: 0.35rem 0;
+		border-bottom: 0;
+		color: var(--brand-navy);
 	}
 	nav a.active {
 		text-decoration: none;
@@ -107,6 +124,14 @@ import HeaderLink from './HeaderLink.astro';
 		.social-links svg {
 			width: 28px;
 			height: 28px;
+		}
+	}
+	@media (width <= 720px) {
+		nav a {
+			padding: 0.6em 0.5em;
+		}
+		nav a.brand {
+			padding: 0.35rem 0;
 		}
 	}
 </style>

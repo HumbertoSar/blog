@@ -26,8 +26,6 @@ publico_alvo: diretores, CPOs, CTOs, CAIOs, líderes de produto e design que con
 nao_inventar: teste = ChatGPT gratuito, sem login, 27/09/2026, duas perguntas, modelo não identificado; tempo de checagem manual (45–90 min) é ESTIMATIVA; dashboard e mockups são CONCEITO com dados ilustrativos; todos os números de estudos conforme verificacao.md
 -->
 
-# ChatGPT com fontes: por que quase ninguém confere
-
 Chegou num momento em que pedir "com fontes" virou o jeito responsável de usar IA. A gente pede, os chips aparecem do lado de cada frase, abre um painel com S&P Global, IBM, RAND, e fica a sensação de trabalho bem feito.
 
 As fontes entraram nas interfaces com boa intenção: transparência, explicabilidade, dar pra pessoa um jeito de conferir. O objetivo, desde os estudos clássicos de confiança em automação, é confiança calibrada: confiar quando o sistema acerta, desconfiar quando erra.

@@ -199,8 +199,13 @@ test('fontes article is in the blog and RSS, and its agent page stays out of bot
 			`missing image alt containing: ${alt}`,
 		);
 	}
-	const captions = html.match(/<p><img\b[^>]*>\s*<em>[^<]+<\/em><\/p>/g) ?? [];
+	const captions = [...html.matchAll(/<p>([\s\S]*?)<\/p>/g)]
+		.map((match) => match[1])
+		.filter((inner) => /<img\b/.test(inner) && /<em>/.test(inner));
 	assert.equal(captions.length, 10, 'each image should keep its italic caption');
+	for (const caption of captions) {
+		assert.match(caption, /<a\b[^>]*class="figure-original"[^>]*>\s*<img\b/);
+	}
 	for (const caption of [
 		'Screenshot real do teste (ChatGPT gratuito, sem login, 27/09/2026)',
 		'Painel de fontes do mesmo teste',
@@ -311,4 +316,95 @@ test('LinkedIn and X profile links appear site-wide and in Person sameAs, withou
 	const llms = readDist('llms.txt');
 	assert.ok(llms.includes(x));
 	assert.ok(llms.includes(linkedin));
+});
+
+function pageCss(html) {
+	const cssHrefs = [...html.matchAll(/href="([^"]+\.css)"/g)].map((match) => match[1]);
+	assert.ok(cssHrefs.length > 0, 'page should load a stylesheet');
+	return cssHrefs.map((href) => readFileSync(new URL(href.replace(/^\//, ''), dist), 'utf8')).join('\n');
+}
+
+test('design critique fixes: title, figures, home, toc, brand, and accessibility', () => {
+	const fontes = readDist('blog/fontes-em-ia-quase-ninguem-confere/index.html');
+	const h1s = fontes.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/g) ?? [];
+	assert.equal(h1s.length, 1, 'the fontes article should have a single h1');
+	assert.match(h1s[0], /ChatGPT com fontes: por que quase ninguém confere/);
+	assert.doesNotMatch(fontes, /id="chatgpt-com-fontes/);
+
+	const originals = [
+		'q2-01-anotado.png',
+		'q2-fontes-anotado.png',
+		'q1-02-anotado.png',
+		'mockups/01-fonte-no-trecho.png',
+		'mockups/02-lista-honesta.png',
+		'mockups/03-onde-conferir.png',
+		'mockups/03b-premissa-marcada.png',
+		'mockups/04-fontes-divergem.png',
+		'mockups/05-atrito-proporcional.png',
+		'mockups/06-medir-confianca.png',
+	];
+	for (const file of originals) {
+		const href = `/originais/fontes-em-ia-quase-ninguem-confere/img/${file}`;
+		assert.ok(fontes.includes(`href="${href}"`), `missing link to ${href}`);
+		assert.equal(existsSync(new URL(href.slice(1), dist)), true, `${href} should be published`);
+	}
+	assert.match(fontes, /<dialog\b[^>]*\bclass="article-lightbox"/);
+	assert.match(fontes, /Abrir arquivo original/);
+	assert.match(fontes, /<time datetime="2026-09-28T/);
+	assert.match(fontes, /min de leitura/);
+	assert.match(fontes, /class="toc"/);
+	assert.match(fontes, /Neste artigo/);
+	assert.match(fontes, /class="post-pager"/);
+	assert.match(fontes, /rel="prev"/);
+	assert.match(fontes, /rel="next"/);
+	assert.match(fontes, /class="skip-link"/);
+	assert.match(fontes, /href="#conteudo"/);
+	assert.match(fontes, /id="conteudo"/);
+	assert.match(fontes, /class="brand"/);
+	assert.match(fontes, /class="monogram"/);
+	assert.doesNotMatch(fontes, /<h2>\s*<a[^>]*href="\/">\s*Humberto Sardenberg\s*<\/a>\s*<\/h2>/);
+
+	const home = readDist('index.html');
+	assert.match(home, /<strong\b[^>]*>HITL<\/strong> \(human-in-the-loop\)/);
+	assert.doesNotMatch(home, /O site está entrando no ar/);
+	assert.doesNotMatch(home, /abertura:/);
+	assert.match(home, /class="post-list"/);
+	assert.match(home, /Posts recentes/);
+	assert.match(home, /href="\/blog\/fontes-em-ia-quase-ninguem-confere\/"/);
+	assert.match(home, /href="\/blog\/backchannel-interfaces-de-ia\/"/);
+	assert.match(home, /href="\/blog\/ola\/"/);
+	assert.match(home, /Um humano no fluxo não garante uma boa decisão/);
+	assert.doesNotMatch(home, /pivot HITL/);
+	assert.match(home, /class="skip-link"/);
+	assert.match(home, /class="brand"/);
+	assert.match(home, /<time datetime="/);
+
+	const css = pageCss(fontes);
+	assert.match(css, /min\(64rem,\s*100vw - 2rem\)/);
+	assert.match(css, /scroll-margin-top:\s*1\.5rem/);
+	assert.match(css, /font-size:\s*1\.75rem/);
+	assert.match(css, /a:focus-visible/);
+	assert.match(css, /outline:\s*2px solid var\(--brand-navy\)/);
+	assert.match(css, /position:\s*sticky/);
+	assert.match(css, /top:\s*2rem/);
+	assert.match(css, /#f7f5f0/i);
+	assert.match(css, /#0f2744/i);
+
+	const headerCss = pageCss(home);
+	assert.match(headerCss, /padding:\s*\.6em \.5em|padding:\s*0\.6em 0\.5em/);
+
+	const hitl = readDist('blog/human-in-the-loop-sem-design-de-interacao/index.html');
+	assert.match(hitl, /cedo demais — e a resposta/);
+	assert.match(hitl, /<time datetime="2026-09-24T/);
+	assert.match(hitl, /min de leitura/);
+
+	const agent = readDist('agentes/fontes-em-ia-quase-ninguem-confere/index.html');
+	assert.match(agent, /Fontes em chat de IA: por que quase ninguém confere \(camada para agentes\)/);
+	assert.doesNotMatch(agent, /class="figure-original"/);
+	assert.match(readDist('llms.txt'), /\/agentes\/fontes-em-ia-quase-ninguem-confere\//);
+
+	const sobre = readDist('sobre/index.html');
+	assert.match(sobre, /class="skip-link"/);
+	assert.match(sobre, /id="conteudo"/);
+	assert.doesNotMatch(sobre, /min de leitura/);
 });
