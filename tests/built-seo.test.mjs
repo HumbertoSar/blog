@@ -21,6 +21,12 @@ function walk(dir) {
 	return files;
 }
 
+function calendarDate(date) {
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = String(date.getDate()).padStart(2, '0');
+	return `${date.getFullYear()}-${month}-${day}`;
+}
+
 function jsonLd(html) {
 	return [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)].map(
 		(match) => JSON.parse(match[1]),
@@ -350,8 +356,16 @@ test('design critique fixes: title, figures, home, toc, brand, and accessibility
 	}
 	assert.match(fontes, /<dialog\b[^>]*\bclass="article-lightbox"/);
 	assert.match(fontes, /Abrir arquivo original/);
-	assert.match(fontes, /<time datetime="2026-09-28T/);
+	const fontesDay = calendarDate(new Date('2026-09-28T00:00:00.000Z'));
+	assert.match(fontes, new RegExp(`<time datetime="${fontesDay}">`));
+	assert.doesNotMatch(fontes, /<time datetime="[^"]*T/);
 	assert.match(fontes, /min de leitura/);
+	const h1At = fontes.search(/<h1\b/);
+	const timeAt = fontes.search(/<time\b/);
+	const tocAt = fontes.search(/class="toc"/);
+	const h2At = fontes.search(/<h2\b/);
+	assert.ok(h1At !== -1 && timeAt !== -1 && tocAt !== -1 && h2At !== -1);
+	assert.ok(h1At < timeAt && timeAt < tocAt && tocAt < h2At, 'toc follows the title metadata and precedes the body');
 	assert.match(fontes, /class="toc"/);
 	assert.match(fontes, /Neste artigo/);
 	assert.match(fontes, /class="post-pager"/);
@@ -381,6 +395,9 @@ test('design critique fixes: title, figures, home, toc, brand, and accessibility
 
 	const css = pageCss(fontes);
 	assert.match(css, /min\(64rem,\s*100vw - 2rem\)/);
+	assert.match(css, /min\(64rem,\s*100vw - 2rem,\s*100cqi\)/);
+	assert.match(css, /justify-self:\s*center/);
+	assert.doesNotMatch(css, /order:\s*-1/);
 	assert.match(css, /scroll-margin-top:\s*1\.5rem/);
 	assert.match(css, /font-size:\s*1\.75rem/);
 	assert.match(css, /a:focus-visible/);
@@ -395,7 +412,7 @@ test('design critique fixes: title, figures, home, toc, brand, and accessibility
 
 	const hitl = readDist('blog/human-in-the-loop-sem-design-de-interacao/index.html');
 	assert.match(hitl, /cedo demais — e a resposta/);
-	assert.match(hitl, /<time datetime="2026-09-24T/);
+	assert.match(hitl, new RegExp(`<time datetime="${calendarDate(new Date('2026-09-24T00:00:00.000Z'))}">`));
 	assert.match(hitl, /min de leitura/);
 
 	const agent = readDist('agentes/fontes-em-ia-quase-ninguem-confere/index.html');

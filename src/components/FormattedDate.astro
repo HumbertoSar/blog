@@ -1,4 +1,6 @@
 ---
+import { calendarDate } from '../lib/calendar-date';
+
 interface Props {
 	date: Date;
 }
@@ -6,7 +8,7 @@ interface Props {
 const { date } = Astro.props;
 ---
 
-<time datetime={date.toISOString()}>
+<time datetime={calendarDate(date)}>
 	{
 		date.toLocaleDateString('pt-BR', {
 			year: 'numeric',
