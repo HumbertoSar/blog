@@ -23,6 +23,9 @@
 - Backchannel em interfaces de IA (agent layer): https://blog.mvpsardenberg.cloud/agentes/backchannel-interfaces-de-ia/
   - Par humano (narrativa/SEO): https://blog.mvpsardenberg.cloud/blog/backchannel-interfaces-de-ia/
   - Tópicos: backchannel, Yngve 1970, grounding Clark Brennan 1991, taxa de aceitação, Mozannar CHI 2024, modelos de decisão (Decisions API, Jev)
+- Liderar a nova geração no trabalho (agent layer): https://blog.mvpsardenberg.cloud/agentes/liderar-nova-geracao/
+  - Par humano (narrativa/SEO): https://blog.mvpsardenberg.cloud/blog/liderar-nova-geracao/
+  - Tópicos: diferenças geracionais (Costanza 2012, NASEM 2020), youngism, kids these days, onboarding, feedback Kluger DeNisi, IA para iniciantes (Brynjolfsson, Bastani)
 
 ## Site map (human)
 
