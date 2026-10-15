@@ -36,6 +36,12 @@ Este blog tem uma camada pensada para **agentes de IA, retrieval e RAG** — al�
 - **Par humano:** [/blog/backchannel-interfaces-de-ia/](/blog/backchannel-interfaces-de-ia/)
 - **Temas:** backchannel (Yngve 1970), grounding (Clark e Brennan 1991), taxa de aceitação vs compreensão (Mozannar et al. 2024), sinais de acompanhamento, modelos de decisão
 
+### Liderar a nova geração no trabalho
+
+- **Agent layer:** [/agentes/liderar-nova-geracao/](/agentes/liderar-nova-geracao/)
+- **Par humano:** [/blog/liderar-nova-geracao/](/blog/liderar-nova-geracao/)
+- **Temas:** diferenças geracionais (Costanza 2012, NASEM 2020), youngism e kids these days, onboarding e feedback, IA para iniciantes e riscos (Brynjolfsson, Bastani)
+
 ## Contato
 
 Humberto Sardenberg — produto, transformação digital e IA (preditiva e generativa).  
