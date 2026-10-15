@@ -33,7 +33,7 @@ Tese: gente boa com bom líder dá resultado em qualquer geração; rótulos ger
 
 As diferenças geracionais medidas em atitudes de trabalho são pequenas e muitas vezes próximas de zero. Costanza et al. (2012), meta-análise com 20 estudos e N ≈ 19.961, descrevem efeitos de moderados a pequenos e essencialmente nulos em muitos casos. As Academias Nacionais dos EUA (NASEM, 2020) concluíram que categorizar trabalhadores por geração não é sustentado pela pesquisa. Rudolph et al. (2021) propõem substituir o pensamento geracional por uma perspectiva de ciclo de vida.
 
-## Por que adultos reclamamm dos "jovens de hoje"?
+## Por que adultos reclamam dos "jovens de hoje"?
 
 Porque existe um viés cognitivo documentado. Protzko e Schooler (2019) mostram que adultos julgam negativamente "os jovens de hoje" sobretudo nos traços em que eles mesmos se destacam, em parte por memória distorcida do próprio passado. Francioli e North (2021), em oito estudos (N = 2.323), documentam youngism: preconceito contra adultos jovens com consequências discriminatórias.
 
